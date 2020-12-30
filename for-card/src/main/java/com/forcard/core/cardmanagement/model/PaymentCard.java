@@ -10,6 +10,7 @@ public class PaymentCard extends AbstractCard {
     public static final String PAYMENT_CARD_HOLDER = "paymentCardHolder";
     public static final String PAYMENT_CARD_NUMBER = "paymentCardNumber";
     public static final String CVV_CODE = "cvvCode";
+    public static final String CARD_ACTIVE = "cardActive";
 
     @Field(PAYMENT_CARD_PROVIDER)
     private String paymentCardProvider;
@@ -22,5 +23,8 @@ public class PaymentCard extends AbstractCard {
 
     @Field(CVV_CODE)
     private String cvvCode;
+
+    @Field(CARD_ACTIVE)
+    private boolean cardActive;
 
 }
