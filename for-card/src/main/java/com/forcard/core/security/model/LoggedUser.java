@@ -9,9 +9,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class LoggedUser implements UserDetails {
+    private static final long serialVersionUID = 1L;
 
     private final ObjectId id;
     private String firstName;
@@ -54,7 +56,7 @@ public class LoggedUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return authorities;
     }
 
     public ObjectId getId() {
@@ -79,7 +81,7 @@ public class LoggedUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return password;
     }
 
     @Override
@@ -89,21 +91,44 @@ public class LoggedUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        LoggedUser user = (LoggedUser) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public String toString() {
+        return "LoggedUser{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", enabled=" + enabled +
+                ", authorities=" + authorities +
+                '}';
+    }
+
 }
