@@ -13,4 +13,6 @@ public interface PaymentCardRepository extends MongoRepository<PaymentCard, Obje
 
     Optional<PaymentCard> findPaymentCardByUserIdAndCardActive(String userId, boolean isCardActive);
 
+    Optional<Long> countByUserId(String userId);
+
 }
