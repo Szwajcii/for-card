@@ -18,6 +18,7 @@ import java.util.Collection;
 @RequestMapping("/api/payment-card")
 public class PaymentCardController {
 
+    private static final String FIND_ALL_PAYMENT_CARDS = "Find all payment cards";
     private static final String FIND_PAYMENT_CARD_BY_ID = "Find payment card by id";
     private static final String FIND_ALL_PAYMENT_CARDS_BY_USER_ID = "Find all payment cards by user id";
     private static final String ACTIVATE_PAYMENT_CARD = "Activate payment card";
@@ -33,6 +34,13 @@ public class PaymentCardController {
                                  PaymentCardSaveService paymentCardSaveService) {
         this.paymentCardFindService = paymentCardFindService;
         this.paymentCardSaveService = paymentCardSaveService;
+    }
+
+    @GetMapping("/all")
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @ApiOperation(value = FIND_ALL_PAYMENT_CARDS, nickname = FIND_ALL_PAYMENT_CARDS)
+    public Collection<PaymentCardResponse> findAllPaymentCards() {
+        return paymentCardFindService.findAll();
     }
 
     @GetMapping("/{id}")

@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.forcard.core.shared.utils.InfoUtils.NOT_FOUND;
@@ -28,6 +29,12 @@ public class PaymentCardFindService {
                                   PaymentCardRepository paymentCardRepository) {
         this.paymentCardResponseMapper = paymentCardResponseMapper;
         this.paymentCardRepository = paymentCardRepository;
+    }
+
+    public Collection<PaymentCardResponse> findAll() {
+        List<PaymentCard> paymentCardList = paymentCardRepository.findAll();
+        log.info("Found {} payment cards in the system.", paymentCardList.size());
+        return paymentCardList.stream().map(paymentCardResponseMapper::simplifyToRestObject).collect(Collectors.toList());
     }
 
     public PaymentCardResponse findPaymentCardById(ObjectId id) {
