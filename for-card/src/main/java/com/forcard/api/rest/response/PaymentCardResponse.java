@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class PaymentCardResponse {
     private String id;
+    private String code;
     private String userId;
     private String paymentCardProvider;
     private String paymentCardHolder;

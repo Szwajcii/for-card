@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public abstract class AbstractCard {
 
     public static final String ID = "_id";
+    public static final String CODE = "code";
     public static final String USER_ID = "userId";
     public static final String EXPIRY_DATE = "expiryDate";
     public static final String CREATED_DATE = "createdDate";
@@ -22,6 +23,9 @@ public abstract class AbstractCard {
     @Id
     @Field(ID)
     private ObjectId id;
+
+    @Field(CODE)
+    private String code;
 
     @Field(USER_ID)
     private String userId;

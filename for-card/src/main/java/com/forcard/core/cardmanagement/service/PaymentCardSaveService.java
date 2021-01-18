@@ -10,6 +10,7 @@ import com.forcard.core.cardmanagement.repository.PaymentCardRepository;
 import com.forcard.core.security.service.LoggedUserProvider;
 import com.forcard.core.shared.exception.EntityNotFoundException;
 import com.forcard.core.shared.exception.ErrorCode;
+import com.forcard.core.shared.utils.CodeGeneratorUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +44,7 @@ public class PaymentCardSaveService {
     public ResponseEntity<PaymentCardResponse> createPaymentCard(PaymentCardRequest request) {
         String userId = loggedUserProvider.loggedUser().getId().toHexString();
         PaymentCard paymentCard = paymentCardRequestMapper.simplifyToDomainObject(request);
+        paymentCard.setCode(CodeGeneratorUtils.generateUniqueCode());
         paymentCard.setUserId(loggedUserProvider.loggedUser().getId().toHexString());
         paymentCard.setCreatedDate(LocalDateTime.now());
         paymentCard.setModifiedDate(LocalDateTime.now());

@@ -23,6 +23,7 @@ public class PaymentCardRequestMapper implements MapperService<PaymentCardReques
     @Override
     public PaymentCardRequest mapFromDomainObject(PaymentCard domain, PaymentCardRequest rest) {
         rest.setId(domain.getId());
+        rest.setCode(domain.getCode());
         rest.setUserId(domain.getUserId());
         rest.setPaymentCardProvider(domain.getPaymentCardProvider());
         rest.setPaymentCardHolder(domain.getPaymentCardHolder());
@@ -40,6 +41,7 @@ public class PaymentCardRequestMapper implements MapperService<PaymentCardReques
         if (rest.getId() != null) {
             domain.setId(rest.getId());
         }
+        domain.setCode(rest.getCode());
         domain.setUserId(rest.getUserId());
         domain.setPaymentCardProvider(rest.getPaymentCardProvider());
         domain.setPaymentCardHolder(rest.getPaymentCardHolder());

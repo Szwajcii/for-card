@@ -27,6 +27,7 @@ public class PaymentCardResponseMapper implements MapperService<PaymentCardRespo
         if (request.getId() != null) {
             response.setId(request.getId().toHexString());
         }
+        response.setCode(request.getCode());
         response.setUserId(request.getUserId());
         response.setPaymentCardProvider(request.getPaymentCardProvider());
         response.setPaymentCardHolder(request.getPaymentCardHolder());
@@ -42,6 +43,7 @@ public class PaymentCardResponseMapper implements MapperService<PaymentCardRespo
     @Override
     public PaymentCardResponse mapFromDomainObject(PaymentCard domain, PaymentCardResponse rest) {
         rest.setId(domain.getId().toHexString());
+        rest.setCode(domain.getCode());
         rest.setUserId(domain.getUserId());
         rest.setPaymentCardProvider(domain.getPaymentCardProvider());
         rest.setPaymentCardHolder(domain.getPaymentCardHolder());
@@ -57,6 +59,7 @@ public class PaymentCardResponseMapper implements MapperService<PaymentCardRespo
     @Override
     public PaymentCard mapToDomainObject(PaymentCard domain, PaymentCardResponse rest) {
         domain.setId(new ObjectId(rest.getId()));
+        domain.setCode(rest.getCode());
         domain.setUserId(rest.getUserId());
         domain.setPaymentCardProvider(rest.getPaymentCardProvider());
         domain.setPaymentCardHolder(rest.getPaymentCardHolder());
