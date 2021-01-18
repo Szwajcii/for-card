@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -21,6 +21,7 @@ import java.util.List;
 public class User {
 
     private static final String ID = "_id";
+    private static final String CODE = "code";
     private static final String FIRST_NAME = "firstName";
     private static final String LAST_NAME = "lastName";
     private static final String ROLES = "roles";
@@ -29,12 +30,16 @@ public class User {
     private static final String PHONE_NUMBER = "phoneNumber";
     private static final String PASSWORD = "password";
     private static final String CREATED_AT = "createdAt";
+    private static final String MODIFIED_AT = "modifiedAt";
     private static final String ENABLED = "enabled";
     private static final String ADDRESS = "address";
 
     @Id
     @Field(ID)
     private ObjectId id;
+
+    @Field(CODE)
+    private String code;
 
     @Field(FIRST_NAME)
     private String firstName;
@@ -58,7 +63,10 @@ public class User {
     private String password;
 
     @Field(CREATED_AT)
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
+
+    @Field(MODIFIED_AT)
+    private LocalDateTime modifiedAt;
 
     @Field(ENABLED)
     private boolean enabled;

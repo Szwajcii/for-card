@@ -54,11 +54,23 @@ public class UserResponseMapper implements MapperService<UserResponse, User> {
         if (domain.getId() != null) {
             rest.setId(domain.getId().toHexString());
         }
+        rest.setCode(domain.getCode());
         rest.setFirstName(domain.getFirstName());
         rest.setLastName(domain.getLastName());
         rest.setGender(domain.getGender().name());
         rest.setEmail(domain.getEmail());
         rest.setPhoneNumber(domain.getPhoneNumber());
+        if (domain.getAddress() != null) {
+            AddressResponse addressResponse = new AddressResponse(
+                    domain.getAddress().getStreet(),
+                    domain.getAddress().getNumber(),
+                    domain.getAddress().getFlat(),
+                    domain.getAddress().getTown(),
+                    domain.getAddress().getZipCode(),
+                    domain.getAddress().getCountry()
+            );
+            rest.setAddress(addressResponse);
+        }
         return rest;
     }
 

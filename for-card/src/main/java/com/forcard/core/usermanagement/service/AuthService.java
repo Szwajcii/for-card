@@ -8,6 +8,7 @@ import com.forcard.core.security.model.ForCardGrantedAuthority;
 import com.forcard.core.security.model.LoggedUser;
 import com.forcard.core.security.service.JwtUtils;
 import com.forcard.core.security.service.LoggedUserProvider;
+import com.forcard.core.shared.utils.CodeGeneratorUtils;
 import com.forcard.core.shared.utils.time.TimeService;
 import com.forcard.core.usermanagement.model.Gender;
 import com.forcard.core.usermanagement.model.OnRegistrationCompleteEvent;
@@ -104,7 +105,10 @@ public class AuthService {
                 encoder.encode(signupRequest.getPassword())
         );
 
+        user.setCode(CodeGeneratorUtils.generateUniqueCode());
         user.setRoles(List.of(ForCardGrantedAuthority.of("USER")));
+        user.setCreatedAt(timeService.getLocalDateTime());
+        user.setModifiedAt(timeService.getLocalDateTime());
         user.setEnabled(false);
         userRepository.save(user);
 

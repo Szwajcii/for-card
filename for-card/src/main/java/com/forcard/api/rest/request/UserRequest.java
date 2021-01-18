@@ -8,6 +8,7 @@ import org.bson.types.ObjectId;
 @Setter
 public class UserRequest {
     private ObjectId id;
+    private String code;
     private String firstName;
     private String lastName;
     private String gender;
