@@ -34,7 +34,7 @@ public class UserController {
     @ApiOperation(value = FIND_ALL_USERS, nickname = FIND_ALL_USERS)
     @PreAuthorize("hasAnyAuthority('ADMIN')")
     public Collection<?> findAllUsers() {
-        return List.of();
+        return userFindService.findAllUsers();
     }
 
     @GetMapping("/{id}")
