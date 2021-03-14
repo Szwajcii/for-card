@@ -1,14 +1,13 @@
 package com.forcard.api.endpoint;
 
+import com.forcard.api.rest.request.ContactMessageRequest;
 import com.forcard.core.messagemanagement.service.ContactMessageFindService;
 import com.forcard.core.messagemanagement.service.ContactMessageSaveService;
 import io.swagger.annotations.ApiOperation;
 import org.bson.types.ObjectId;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -20,7 +19,6 @@ public class ContactMessageController {
     private static final String FIND_UNREAD_MESSAGES = "Find unread messages";
     private static final String FIND_ARCHIVED_MESSAGES = "Find archived messages";
     private static final String CREATE_CONTACT_MESSAGE = "Create contact message";
-    private static final String CHANGE_MESSAGE_STATUS = "Change message status";
     private static final String SEND_RESPONSE_MESSAGE_TO_USER = "Send response message to user";
 
     private final ContactMessageFindService contactMessageFindService;
@@ -51,6 +49,20 @@ public class ContactMessageController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public Collection<?> findAllArchivedMessages() {
         return contactMessageFindService.findArchivedMessages();
+    }
+
+    @PostMapping()
+    @ApiOperation(value = CREATE_CONTACT_MESSAGE, nickname = CREATE_CONTACT_MESSAGE)
+    @PreAuthorize("hasAnyAuthority('USER')")
+    public ResponseEntity<?> createContactMessage(@RequestBody ContactMessageRequest request) {
+        return contactMessageSaveService.createContactMessage(request);
+    }
+
+    @PostMapping("/send-response")
+    @ApiOperation(value = SEND_RESPONSE_MESSAGE_TO_USER, nickname = SEND_RESPONSE_MESSAGE_TO_USER)
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<?> sendResponseToUser(@RequestBody ContactMessageRequest request) {
+        return ResponseEntity.ok().body("");
     }
 
 }
