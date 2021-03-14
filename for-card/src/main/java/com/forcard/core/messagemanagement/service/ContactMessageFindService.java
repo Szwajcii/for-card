@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -41,7 +42,7 @@ public class ContactMessageFindService {
     private Collection<?> findMessagesByStatus(String status) {
         Collection<ContactMessage> contactMessages = contactMessageRepository.findAllByStatus(status);
         log.info("Found {} {} messages", contactMessages.size(), status);
-        return List.of();
+        return contactMessages.stream().map(contactMessageResponseMapper::simplifyToRestObject).collect(Collectors.toList());
     }
 
 }
